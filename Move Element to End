@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+//Move Element to End problem
+
+//time complexity - o(n)  space complexity - o(1)
+vector<int> moveElementToEnd(vector<int> array, int toMove) {
+
+    int i = 0;
+    int j = array.size() - 1;
+
+    while (i < j)
+    {
+        if (array[i] == toMove && array[j] != toMove)
+        {
+            swap(array[i], array[j]);
+            i++;
+            j--;
+        }
+        if (array[i] != toMove)
+            i++;
+        if (array[j] == toMove)
+            j--;
+    }
+
+    return array;
+}
+
+
+int main() {
+
+#ifndef ONLINE_JUDGE
+    //for getting input from input.txt
+    freopen ("input.txt", "r", stdin);
+    //for writing output to output.txt
+    freopen ("output.txt", "w", stdout);
+#endif
+
+    int n;
+    cin >> n;
+
+    vector<int> ar(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> ar[i];
+    }
+
+    int ele;
+    cin >> ele;
+
+    vector<int> v = moveElementToEnd(ar, ele);
+
+    for (int i = 0; i < v.size(); i++)
+    {
+        cout << v[i] << " ";
+    }
+
+    cout << endl;
+
+}
+
