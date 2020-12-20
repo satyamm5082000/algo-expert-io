@@ -1,0 +1,101 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+//Smallest Difference problem
+
+//time complexity - o(n*m)  space complexity - o(1)
+vector<int> smallestDifference_1(vector<int> arrayOne, vector<int> arrayTwo) {
+
+    int n = arrayOne.size();
+    int m = arrayTwo.size();
+
+    int mini = INT_MAX;
+    vector<int> v;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (abs(arrayOne[i] - arrayTwo[j]) < mini)
+            {
+                v.clear();
+                v = {arrayOne[i], arrayTwo[j]};
+                mini = abs(arrayOne[i] - arrayTwo[j]);
+            }
+        }
+    }
+
+    return v;
+}
+
+
+//time complexity - o(nlogn+mlogm)  space complexity - o(1)
+vector<int> smallestDifference_2(vector<int> arrayOne, vector<int> arrayTwo) {
+
+    sort(arrayOne.begin(), arrayOne.end());
+    sort(arrayTwo.begin(), arrayTwo.end());
+
+    int i = 0;
+    int j = 0;
+
+    int n = arrayOne.size();
+    int m = arrayTwo.size();
+
+    int mini = INT_MAX;
+
+    vector<int> v;
+    while (i < n && j < m)
+    {
+        if (arrayOne[i] == arrayTwo[j])
+            return {arrayOne[i], arrayOne[i]};
+
+        if (abs(arrayOne[i] - arrayTwo[j]) < mini)
+        {
+            v = {arrayOne[i], arrayTwo[j]};
+            mini = abs(arrayOne[i] - arrayTwo[j]);
+        }
+
+        if (arrayOne[i] < arrayTwo[j])
+            i++;
+        else
+            j++;
+    }
+
+    return v;
+}
+int main() {
+
+#ifndef ONLINE_JUDGE
+    //for getting input from input.txt
+    freopen ("input.txt", "r", stdin);
+    //for writing output to output.txt
+    freopen ("output.txt", "w", stdout);
+#endif
+
+    int n;
+    cin >> n;
+
+    vector<int> ar(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> ar[i];
+    }
+
+    int m;
+    cin >> m;
+
+    vector<int> br(m);
+
+    for (int i = 0; i < m; i++)
+    {
+        cin >> br[i];
+    }
+
+    vector<int> v = smallestDifference_2(ar, br);
+    for (int i = 0; i < v.size(); i++)
+    {
+        cout << v[i] << " ";
+    }
+
+    cout << endl;
+}
