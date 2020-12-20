@@ -1,0 +1,108 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+//Two sum problem
+
+//time complexity = o(n^2)   space complexity = o(1)
+vector<int> sum2_1(vector<int> v, int target)
+{
+    int n = v.size();
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            if (v[i] + v[j] == target)
+                return {v[j], v[i]};
+        }
+    }
+
+    return {};
+}
+
+//time complexity = o(n)   space complexity = o(n)
+vector<int> sum2_2(vector<int> v, int target)
+{
+    int n = v.size();
+    unordered_set<int> s;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (s.find(target - v[i]) != s.end())
+            return {v[i], target - v[i]};
+
+        s.insert(v[i]);
+    }
+
+    return {};
+}
+
+//time complexity = o(nlogn)   space complexity = o(1)
+vector<int> sum2_3(vector<int> v, int target)
+{
+    sort(v.begin(), v.end());
+    int i = 0;
+    int j = v.size() - 1;
+
+    while (i < j)
+    {
+        int cur = v[i] + v[j];
+        if (cur == target)
+            return {v[i], v[j]};
+        else if (cur > target)
+            j--;
+        else
+            i++;
+
+    }
+
+    return {};
+}
+
+int main() {
+
+#ifndef ONLINE_JUDGE
+    //for getting input from input.txt
+    freopen ("input.txt", "r", stdin);
+    //for writing output to output.txt
+    freopen ("output.txt", "w", stdout);
+#endif
+
+    int n;
+    cin >> n;
+
+    vector<int> ar(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> ar[i];
+    }
+
+
+    int target;
+    cin >> target;
+
+
+    vector<int> o1 = sum2_1(ar, target);
+    vector<int> o2 = sum2_2(ar, target);
+    vector<int> o3 = sum2_3(ar, target);
+
+    for (int i = 0; i < o1.size(); i++)
+    {
+        cout << o1[i] << " ";
+    }
+    cout << endl;
+
+    for (int i = 0; i < o2.size(); i++)
+    {
+        cout << o2[i] << " ";
+    }
+    cout << endl;
+
+    for (int i = 0; i < o3.size(); i++)
+    {
+        cout << o3[i] << " ";
+    }
+    cout << endl;
+
+}
