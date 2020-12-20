@@ -1,0 +1,77 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+//Monotonic array problem
+
+//time complexity - o(n)  space complexity - o(1)
+bool isMonotonic_1(vector<int> array) {
+
+    int n = array.size();
+
+    if (n < 2)
+        return true;
+
+    int direction = array[1] - array[0];
+
+    for (int i = 2; i < n; i++)
+    {
+        if (direction == 0)
+        {
+            direction = array[i] - array[i - 1];
+            continue;
+        }
+
+        int dif = array[i] - array[i - 1];
+        if ((dif > 0 && direction < 0) || (dif < 0 && direction > 0))
+            return false;
+
+    }
+
+    return true;
+
+}
+
+
+//time complexity - o(n)  space complexity - o(1)
+bool isMonotonic_2(vector<int> array) {
+
+    int n = array.size();
+
+    bool increase_direction = true;
+    bool decrease_direction = true;
+
+    for (int i = 1; i < n; i++)
+    {
+        if (array[i] - array[i - 1] < 0)
+            decrease_direction = false;
+        else if (array[i] - array[i - 1] > 0)
+            increase_direction = false;
+    }
+
+    return increase_direction || decrease_direction;
+
+}
+
+
+int main() {
+
+#ifndef ONLINE_JUDGE
+    //for getting input from input.txt
+    freopen ("input.txt", "r", stdin);
+    //for writing output to output.txt
+    freopen ("output.txt", "w", stdout);
+#endif
+
+    int n;
+    cin >> n;
+
+    vector<int> ar(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> ar[i];
+    }
+
+    cout << isMonotonic_2(ar) << endl;
+}
+
