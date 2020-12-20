@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+//Validate Sequence problem
+
+//time complexity = o(n)   space complexity = o(1)
+bool validateSequence(vector<int> ar, vector<int> seq)
+{
+    int i = 0;
+    int j = 0;
+    int n = ar.size();
+    int m = seq.size();
+    while (i < n && j < m)
+    {
+        if (ar[i] == seq[j])
+            j++;
+        i++;
+    }
+
+    return j == m;
+}
+
+
+
+int main() {
+
+#ifndef ONLINE_JUDGE
+    //for getting input from input.txt
+    freopen ("input.txt", "r", stdin);
+    //for writing output to output.txt
+    freopen ("output.txt", "w", stdout);
+#endif
+
+    int n;
+    cin >> n;
+
+    vector<int> ar(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> ar[i];
+    }
+
+    int m;
+    cin >> m;
+
+    vector<int> br(m);
+
+    for (int i = 0; i < m; i++)
+    {
+        cin >> br[i];
+    }
+
+    cout << validateSequence(ar, br);
+
+}
+
