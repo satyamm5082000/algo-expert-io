@@ -1,0 +1,120 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+//Spiral Matrix problem
+
+//Iterative Solution
+//time complexity - o(N)  space complexity - o(n) --- N (no of element in matrix)
+vector<int> spiralTraverseIterative(vector<vector<int>> array) {
+
+    int sR = 0;
+    int sC = 0;
+    int eR = array.size() - 1;
+    int eC = array[0].size() - 1;
+    vector<int> v;
+
+    while (sR < eR && sC < eC)
+    {
+        for (int i = sC; i <= eC; i++)
+        {
+            v.push_back(array[sR][i]);
+        }
+
+        for (int i = sR + 1; i <= eR; ++i)
+        {
+            v.push_back(array[i][eC]);
+        }
+
+        for (int i = eC - 1; i >= sC; i--)
+        {
+            v.push_back(array[eR][i]);
+        }
+
+        for (int i = eR - 1; i > sR ; --i)
+        {
+            v.push_back(array[i][sC]);
+        }
+
+        sR++;
+        sC++;
+        eR--;
+        eC--;
+    }
+
+    return v;
+}
+
+//Recursion Solution
+//time complexity - o(N)  space complexity - o(n) --- N (no of element in matrix)
+void spiralTraverseRecursive(vector<vector<int>> array, int sR, int eR, int sC, int eC, vector<int> &v) {
+
+    if (sR < eR && sC < eC)
+    {
+        for (int i = sC; i <= eC; i++)
+        {
+            v.push_back(array[sR][i]);
+        }
+
+        for (int i = sR + 1; i <= eR; ++i)
+        {
+            v.push_back(array[i][eC]);
+        }
+
+        for (int i = eC - 1; i >= sC; i--)
+        {
+            v.push_back(array[eR][i]);
+        }
+
+        for (int i = eR - 1; i > sR ; --i)
+        {
+            v.push_back(array[i][sC]);
+        }
+
+        spiralTraverseRecursive(array, sR + 1, eR - 1, sC + 1, eC - 1, v);
+    }
+}
+
+int main() {
+
+#ifndef ONLINE_JUDGE
+    //for getting input from input.txt
+    freopen ("input.txt", "r", stdin);
+    //for writing output to output.txt
+    freopen ("output.txt", "w", stdout);
+#endif
+
+    int n, m;
+    cin >> n >> m;
+
+    vector<vector<int>> mat(n, vector<int> (m));
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            cin >> mat[i][j];
+        }
+    }
+
+    vector<int> ans1 = spiralTraverseIterative(mat);
+
+    for (int i = 0; i < ans1.size(); i++)
+    {
+        cout << ans1[i] << " ";
+    }
+
+    cout << endl;
+
+    vector<int> ans2;
+
+    spiralTraverseRecursive(mat, 0, n - 1, 0, m - 1, ans2);
+
+    for (int i = 0; i < ans1.size(); i++)
+    {
+        cout << ans1[i] << " ";
+    }
+
+    cout << endl;
+
+}
+
